@@ -1,1 +1,1 @@
-[link to my repo](https://github.com/greenfox-zerda-lasers/bereczb "link to my repo")
+[link to my cloned syllabus](https://github.com/bereczb/velox-syllabus "link to my cloned syllabus")
