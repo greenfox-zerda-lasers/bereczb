@@ -1,1 +1,1 @@
-"(https://github.com/greenfox-zerda-lasers/bereczb "link to my repo")" 
+[link to my repo](https://github.com/greenfox-zerda-lasers/bereczb "link to my repo")
