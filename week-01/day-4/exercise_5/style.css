@@ -1,0 +1,30 @@
+h1 {
+  color: blue;
+}
+
+h2 {
+  color: #F1B844;
+}
+
+.purple {
+  color: #F9011B;
+}
+
+.square {
+  list-style-type: square;
+  color: blue;
+}
+
+.disc {
+  list-style-type: disc;
+  color: black;
+}
+
+.purple_disc {
+  list-style-type: disc;
+  color: purple;
+}
+
+ol {
+  color: black;
+}

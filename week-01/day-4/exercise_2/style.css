@@ -1,0 +1,16 @@
+.bigbox{
+  font-size: 30px;
+  color: #2015A2;
+  background-color: #008001;
+  margin: 10px;
+  padding: 15px;
+  width: 238px;
+}
+
+.box{
+
+  padding: 15px;
+  border: 4px solid black;
+  width: 200px;
+  background-color: #FFFF00;
+}
