@@ -1,0 +1,46 @@
+body{
+  margin: auto;
+}
+
+header{
+  background-color: aqua;
+  height: 100px;
+}
+
+main{
+  background-color: red;
+  height: 500px;
+  width: auto;
+  margin-left: 126px;
+  margin-right: 126px;
+  position: relative;
+}
+
+footer{
+  background-color: blue;
+  height: 100px;
+}
+
+.left{
+  background-color: orange;
+  height: 500px;
+  width: 100px;
+  float: left;
+}
+
+.right{
+  background-color: purple;
+  height: 500px;
+  width: 100px;
+  float: right;
+}
+
+div{
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  background-color: black;
+  bottom: 15px;
+  right: 15px;
+}
+C

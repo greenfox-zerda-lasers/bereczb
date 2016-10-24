@@ -1,0 +1,71 @@
+body{
+  position: relative;
+}
+
+p {
+  width: 500px;
+  border-bottom: 2px solid black;
+  padding-bottom: 1em;
+}
+
+img {
+  float: left;
+}
+
+#duck-right{
+  float: right;
+}
+
+.bigbox{
+  border-radius: 10px;
+  border: 2px solid black;
+  height: 125px;
+  width: 200px;
+  background-color: white;
+  z-index: 1;
+  position: absolute;
+  top: 1em;
+  margin: auto;
+
+}
+
+.box1{
+  padding: 10px;
+  border-bottom: 2px solid black;
+}
+
+.wow{
+  color: purple;
+}
+
+.x{
+  border-radius: 0.6em;
+  background-color: black;
+  color: white;
+  padding: 0.2em;
+  display: inline-block;
+}
+
+.box2{
+  padding: 10px;
+  border-bottom: 2px solid black;
+}
+
+.box3{
+  padding: 10px;
+  float: right;
+}
+
+.box3-ok{
+  display: inline-block;
+  padding: 5px;
+  border-radius: 11px;
+  background-color: #ccc;
+}
+
+.box3-cancel{
+  display: inline-block;
+  padding: 5px;
+  border-radius: 11px;
+  background-color: #ccc;
+}

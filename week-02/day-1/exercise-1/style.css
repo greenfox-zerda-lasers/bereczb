@@ -1,0 +1,13 @@
+p {
+  width: 300px;
+  border-bottom: 2px solid black;
+  padding-bottom: 1em;
+}
+
+img {
+  float: left;
+}
+
+#duck-right{
+  float: right;
+}
