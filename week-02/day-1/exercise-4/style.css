@@ -1,5 +1,7 @@
 body{
   position: relative;
+  width: 500px;
+  margin: auto;
 }
 
 p {
@@ -25,8 +27,7 @@ img {
   z-index: 1;
   position: absolute;
   top: 1em;
-  margin: auto;
-
+  margin-left: 150px;
 }
 
 .box1{
@@ -35,15 +36,20 @@ img {
 }
 
 .wow{
-  color: purple;
+  color: red;
 }
 
 .x{
-  border-radius: 0.6em;
+  border-radius: 8px;
   background-color: black;
   color: white;
-  padding: 0.2em;
+  width: 16px;
+  height: 16px;
   display: inline-block;
+  text-align: center;
+  right: 10px;
+  top: -10px;
+  position: absolute;
 }
 
 .box2{
