@@ -1,0 +1,73 @@
+form{
+  width: 620px;
+  height: 1000px;
+  background-color: #DCD6CD;
+  margin: auto;
+  padding: 40px 100px;
+  border: 1px solid black;
+  font-family: 'Montserrat', sans-serif;
+  font-style: normal;
+  font-weight: normal;
+}
+
+header{
+  margin-top: 55;
+  margin-left: 100;
+}
+
+h2{
+  background-color: grey;
+  padding: 10px;
+  color: white;
+  border-radius: 3px;
+  font-weight: normal;
+  font-size:
+
+}
+
+.first-block{
+  display: flex;
+  justify-content: space-between;
+}
+
+.personal-data{
+  width: 290px;
+}
+
+.contact{
+  width: 290px;
+}
+
+.inp-form{
+  display: block;
+  width: 290px;
+  border-radius: 5px;
+  height: 35px;
+}
+
+#year{
+  width: 80px;
+}
+
+/*.inp-radio{
+  float: right;
+
+}*/
+
+.column1{
+  float: left;
+  margin-right: 50px;
+}
+
+.grey{
+  color: #9F9C98;
+}
+
+strong{
+  color: red;
+}
+
+textarea{
+  width: 610px;
+  height: 160px;
+}
