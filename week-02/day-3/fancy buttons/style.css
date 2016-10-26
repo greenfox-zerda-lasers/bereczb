@@ -1,0 +1,44 @@
+button{
+  width: 230px;
+  height: 60px;
+  font-size: 26px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#button1{
+  background: linear-gradient(#FAFAFA, #d4d4d4);
+  border: 2px solid #D4D4D4;
+  color: #666666;
+  box-shadow: 0px 1px 6px 1px #D2E0E8;
+}
+
+#button2{
+  background: linear-gradient(#00b5e5, #008db2);
+  border: 2px solid #107996;
+  color: #FFFFFF;
+  box-shadow: 0px 1px 6px 1px #D2E0E8;
+  text-shadow: 0px -1px 3px #000000;
+}
+
+#button3{
+  background: linear-gradient(#8fcf00, #6c9d00);
+  border: 2px solid #5B8115;
+  color: #FFFFFF;
+  box-shadow: 0px 1px 6px 1px #D2E0E8;
+  text-shadow: 1px -1px 3px #000000;
+}
+
+#button1:hover{
+  background: linear-gradient(#d4d4d4, #FAFAFA);
+  box-shadow: 0px 1px 3px 1px #D2E0E8;
+}
+
+#button2:hover{
+  background: linear-gradient(#008db2, #00b5e5);
+  box-shadow: 0px 1px 3px 1px #D2E0E8;
+}
+
+#button3:hover{
+  background: linear-gradient(#6c9d00, #8fcf00);
+  box-shadow: 0px 1px 3px 1px #D2E0E8;
+}
