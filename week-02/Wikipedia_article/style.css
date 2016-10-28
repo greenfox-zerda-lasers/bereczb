@@ -25,7 +25,15 @@ footer{
   margin-left: 175px;
   padding: 0px 25px;
   background-color: #F6F6F6;
+}
+
+footer div, footer p{
   font-size: 12px;
+}
+
+.footer-links a{
+  display: inline-block;
+  margin: 0px 10px 40px 0px;
 }
 
 .header1-2{
@@ -58,6 +66,28 @@ padding: 0px;
 h1, h2{
   border-bottom: 1px solid grey;
   overflow: hidden;
+  margin-bottom: -10px;
+  font-weight: normal;
+}
+
+h1{
+  font-size: 1.9rem;
+}
+
+p{
+  font-size: 1.05rem;
+  line-height: 150%;
+}
+
+.from-the-wiki{
+  font-size: 0.9rem;
+}
+
+.for-other-people{
+  font-size: 0.9rem;
+  margin-left: 20px;
+  margin-bottom: -10px;
+  font-style: italic;
 }
 
 .biography{
@@ -69,6 +99,15 @@ h1, h2{
   margin-left: 12px;
 }
 
+.biography thead tr:nth-child(3) th{
+  font-weight: 100;
+  font-size: 14px;
+}
+
+td{
+  vertical-align: top;
+}
+
 .photo2{
   width: 222px;
   background-color: #F9F9F9;
@@ -77,6 +116,10 @@ h1, h2{
   margin-bottom: 6px;
   margin-left: 12px;
   padding: 3px;
+}
+
+.photo2 p, .photo3 p, .photo4 p{
+    font-size: 14px;
 }
 
 .photo3{
@@ -120,7 +163,14 @@ h1, h2{
 
 .ul-form{
   padding-left: 8px;
+  margin-top: -6px;
+  margin-bottom: 8px;
   list-style-type: none;
+}
+
+.ul-form-level{
+  margin-left: 15px;
+  margin-top: 2px;
 }
 
 .sidebar ul{
@@ -128,9 +178,19 @@ h1, h2{
   list-style-type: none;
 }
 
+ul.sidebar-first-list{
+  padding-left: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
 aside h4{
   padding-left: 22px;
-  border-top: 1px solid grey;
+  border-width: 1px;
+  border-style: solid;
+  border-image: linear-gradient(to right, transparent 0%, gray 50%, transparent 100%) 0 0 1 0;
   margin: -8px 0px;
 }
 
