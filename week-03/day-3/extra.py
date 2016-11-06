@@ -1,13 +1,19 @@
-# import random
-#
-# number = int(random.random() * 100)
-#
-# print(number)
-#
-# guess = input("Guess? ")
-#
-# print(age * 2)
+import random
 
-test = input("enter the test");
+def guess():
+    return int(input('your guess? '))
 
-print(test)
+number = int(random.random() * 100)
+
+guess_number = 0
+
+while True:
+    guess_var = guess()
+    guess_number += 1
+    if guess_var > number:
+        print('lower')
+    elif guess_var < number:
+        print('higher')
+    else:
+        print('congrat!', guess_number, 'th try')
+        break
