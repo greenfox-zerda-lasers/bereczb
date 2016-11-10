@@ -1,23 +1,24 @@
 from tkinter import *
 
-def draw_polygon(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, level):
+def draw_polygon(x, y, width, height, level):
     if level == 0:
         return
-    canvas.create_polygon(x1, y1, x2, y2, x3, y3, x4, y4, x5, y5, x6, y6, fill='white', outline="black")
+    canvas.create_polygon(x + width/4, y + 0, x + width/4*3, y + 0, x + width, y + height/2, x + width/4*3, y + height, x + width/4, y + height, x + 0, y + height/2, fill='white', outline="black")
 
-    draw_polygon(x1, y1, x2 - x1, y2, x1 * 2.5, y4/4, x2 - x1, y3, x1, y3, x1/2, y3/2, level-1)
-    draw_polygon(x1 * 2.5, y4/4, x2 + x1/2, y4/4, x3, y3, x2 + x1/2, y4/4*3, x1 * 2.5, y4/4*3, x2 - x1, y3, level-1)
-    draw_polygon(x1, y3, x2 - x1, y3, x1 * 2.5, y4/4*3, x2 - x1, y4, x1, y4, x1/2, y4/4*3, level-1)
+    draw_polygon(x + width/8, y + 0, width/2, height/2, level-1)
+    draw_polygon(x + width/2, y + height/4, width/2, height/2, level-1)
+    draw_polygon(x + width/8, y + height/2, width/2, height/2, level-1)
 
 
 root = Tk()
 
 width = 400
-height = 400
+height = 2 * ((width/2) * 3**0.5)/2
 
 canvas = Canvas(root, width = width, height = height)
 canvas.pack()
 
-draw_polygon(width/4, 0, width/4*3, 0, width, height/2, width/4*3, height, width/4, height, 0, height/2, 3)
+# draw_polygon(width/4, 0, width/4*3, 0, width, height/2, width/4*3, height, width/4, height, 0, height/2, 3)
+draw_polygon(0, 0, width, height, 5)
 
 root.mainloop()
