@@ -1,6 +1,7 @@
 body{
   margin: auto;
   background-color: #F6F6F6;
+  font-family: helvetica neue;
 }
 
 header{
@@ -97,6 +98,7 @@ p{
   float: right;
   margin-bottom: 6px;
   margin-left: 12px;
+  margin-top: 25px;
 }
 
 .biography thead tr:nth-child(3) th{
@@ -188,10 +190,17 @@ a {
 
 aside h4{
   padding-left: 22px;
+  padding-top: 3px;
   border-width: 1px;
   border-style: solid;
-  border-image: linear-gradient(to right, transparent 0%, gray 50%, transparent 100%) 0 0 1 0;
+  border-image: linear-gradient(to right, transparent 0%, gray 50%, transparent 100%) 1 0 0 0;
   margin: -8px 0px;
+  font-size: 0.9rem;
+  font-weight: normal;
+}
+
+aside li{
+  font-size: 0.9rem;
 }
 
 .table-of-content h3{
