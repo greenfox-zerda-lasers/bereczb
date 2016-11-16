@@ -1,5 +1,6 @@
 import open_screen
 import sys, getopt
+import csv
 
 class Todo:
 
@@ -36,18 +37,23 @@ class Todo:
 
     def print_todo_list(self):
         for i in range(len(self.todo_list)):
-            print(i + 1, ' - ', self.todo_list[i][:-1])
+            print(i + 1, ' - ', self.todo_list[i][4:-1])
 
     def add_task(self):
-        self.todo_list.append(self.new_task+'\n')
+        self.todo_list.append('[ ] ' + self.new_task + '\n')
 
     def remove_task(self, nth):
         self.nth = nth
         self.todo_list.pop(self.nth - 1)
 
+    def checked_state(self):
+        for i in range(len(self.todo_list)):
+            print(i + 1, ' - ', self.todo_list[i][:-1])
+
     def proba(self):
         self.new_task = 'qwerty'
         self.read_file()
+        print(self.todo_list)
         self.print_todo_list()
         self.add_task()
         print('')
@@ -57,6 +63,7 @@ class Todo:
         self.remove_task(2)
         self.print_todo_list()
         print(self.todo_list)
+        self.checked_state()
 
 
 my_todo = Todo()
