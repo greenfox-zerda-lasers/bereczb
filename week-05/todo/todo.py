@@ -1,7 +1,7 @@
 import open_screen
 import sys, getopt
 
-class todo:
+class Todo:
 
     def main(self, argv):
         pass
@@ -35,11 +35,37 @@ class todo:
         f.close()
 
     def print_todo_list(self):
-        print(file_ops(read))
+        for i in range(len(self.todo_list)):
+            print(i + 1, ' - ', self.todo_list[i][:-1])
+
+    def add_task(self):
+        self.todo_list.append(self.new_task+'\n')
+
+    def remove_task(self, nth):
+        self.nth = nth
+        self.todo_list.pop(self.nth - 1)
+
+    def proba(self):
+        self.new_task = 'qwerty'
+        self.read_file()
+        self.print_todo_list()
+        self.add_task()
+        print('')
+        self.print_todo_list()
+        print(self.todo_list)
+        print('')
+        self.remove_task(2)
+        self.print_todo_list()
+        print(self.todo_list)
 
 
+my_todo = Todo()
 
 if __name__ == "__main__":
-   main(sys.argv[1:])
+   my_todo.main(sys.argv[1:])
 
 open_screen.draw_screen()
+
+# my_todo.print_todo_list()
+
+my_todo.proba()
