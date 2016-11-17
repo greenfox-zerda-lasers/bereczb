@@ -15,19 +15,19 @@ class Elevator_view:
     bottom1_noelev = '  _||_||_______||_||_______||_||_'
     bottom2 = ".'_______________________________`."
 
-    def art(self, level, people):
+    def art(self, level, people, level_change):
         self.level = level
         self.people = people
 
-        os.system('cls' if os.name == 'nt' else 'clear')
-        self.building_wo_elevator()
-        self.navigation()
-
-        time.sleep(0)
-
-        os.system('cls' if os.name == 'nt' else 'clear')
-        self.building_w_elevator(self.level, self.people)
-        self.navigation()
+        if level_change:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            self.building_wo_elevator()
+            self.navigation()
+            time.sleep(0.5)
+        else:
+            os.system('cls' if os.name == 'nt' else 'clear')
+            self.building_w_elevator(self.level, self.people)
+            self.navigation()
 
     def building_wo_elevator(self):
 

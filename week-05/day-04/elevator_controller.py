@@ -27,17 +27,24 @@ class Elevator_control():
         self.control_loop()
 
     def control_loop(self):
-        self.command = ''
+
+        self.elev_model.floor_change = False
 
         while True:
-            self.elev_view.art(self.elev_model.level, self.elev_model.people)
+            self.elev_view.art(self.elev_model.level, self.elev_model.people, self.elev_model.floor_change  )
             self.command = input("your command: ")
 
             if self.command == 'u':
                 self.elev_model.move_up()
+                if self.elev_model.floor_change == True:
+                    self.elev_view.art(self.elev_model.level, self.elev_model.people, self.elev_model.floor_change)
+                    self.elev_model.floor_change = False
 
             elif self.command == 'd':
                 self.elev_model.move_down()
+                if self.elev_model.floor_change == True:
+                    self.elev_view.art(self.elev_model.level, self.elev_model.people, self.elev_model.floor_change)
+                    self.elev_model.floor_change = False
 
             elif self.command == 'a':
                 self.elev_model.add_people()

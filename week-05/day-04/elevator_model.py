@@ -17,10 +17,12 @@ class Elevator:
     def move_up(self):
         if self.level < 11:
             self.level += 1
+            self.floor_change = True
 
     def move_down(self):
         if self.level > 0:
             self.level -= 1
+            self.floor_change = True
 
     def add_people(self):
         if self.people < 9:
