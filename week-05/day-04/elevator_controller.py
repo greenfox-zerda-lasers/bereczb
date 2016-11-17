@@ -31,7 +31,7 @@ class Elevator_control():
         self.elev_model.floor_change = False
 
         while True:
-            self.elev_view.art(self.elev_model.level, self.elev_model.people, self.elev_model.floor_change  )
+            self.elev_view.art(self.elev_model.level, self.elev_model.people, self.elev_model.floor_change)
             self.command = input("your command: ")
 
             if self.command == 'u':

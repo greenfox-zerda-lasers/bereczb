@@ -3,7 +3,7 @@ import randcolor
 import time
 
 def draw_polygon(x, y, width, height, level):
-    time.sleep(0.00001)
+    time.sleep(0.0000001)
     if level == 0:
         return
     color = randcolor.random_color()
@@ -25,6 +25,6 @@ height = 2 * ((width/2) * 3**0.5)/2
 canvas = Canvas(root, width = width, height = height)
 canvas.pack()
 
-draw_polygon(0, 0, width, height, 5)
+draw_polygon(0, 0, width, height, 6)
 
 root.mainloop()

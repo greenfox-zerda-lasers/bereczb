@@ -6,7 +6,7 @@ def draw_polygon(x, y, width, height):
 
     time.sleep(0.00001)
 
-    color = randcolor.random_color('')
+    color = randcolor.random_color()
     canvas.create_polygon(x + width/4, y + 0, x + width/4*3, y + 0, x + width, y + height/2, x + width/4*3, y + height, x + width/4, y + height, x + 0, y + height/2, fill=color, outline="black")
     canvas.update()
 

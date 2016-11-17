@@ -1,29 +1,37 @@
 import open_screen
-import sys, getopt
+import sys
 import csv
 
 class Todo:
 
-    def main(self, argv):
-        pass
-    #    # inputfile = ''
-    #    # outputfile = ''
-    #    # try:
-    #    #    opts, args = getopt.getopt(argv,"hi:o:",["ifile=","ofile="])
-    #    # except getopt.GetoptError:
-    #    #    print 'test.py -i <inputfile> -o <outputfile>'
-    #    #    sys.exit(2)
-    #    # for opt, arg in opts:
-    #    #    if opt == '-h':
-    #    #       print 'test.py -i <inputfile> -o <outputfile>'
-    #    #       sys.exit()
-    #    #    elif opt in ("-i", "--ifile"):
-    #    #       inputfile = arg
-    #    #    elif opt in ("-o", "--ofile"):
-    #    #       outputfile = arg
-    #    # print 'Input file is "', inputfile
-    #    # print 'Output file is "', outputfile
-    #
+    def argumnet_function(self, argv):
+
+        self.argument = argv
+        self.read_file()
+
+        if self.argument[0] == '-l':
+            self.print_todo_list()
+
+        elif self.argument[0] == '-a':
+            if len(self.argument) == 1:
+                print('\nNo task is provided')
+            else:
+                self.add_task(self.argument[1])
+                self.write_file()
+
+        elif self.argument[0] == '-r':
+            if len(self.argument) == 1:
+                print('\nUnable to remove: No index is provided')
+# !!!!!!!!!
+            elif int(self.argument[1]) < 1 or int(self.argument[1]) > len(self.todo_list):
+                print('\nUnable to remove: Index is out of bound')
+            else:
+                self.remove_task(int(self.argument[1]))
+                self.write_file()
+
+        elif self.argument[0] == '-c':
+            self.check_task(int(self.argument[1]))
+            self.write_file()
 
     def read_file(self):
         f = open('todo_storage.csv', 'r')
@@ -35,44 +43,27 @@ class Todo:
         f.writelines(self.todo_list)
         f.close()
 
-    def print_todo_list(self):
-        for i in range(len(self.todo_list)):
-            print(i + 1, ' - ', self.todo_list[i][4:-1])
-
-    def add_task(self):
-        self.todo_list.append('[ ] ' + self.new_task + '\n')
+    def add_task(self, new_task):
+        self.todo_list.append('[ ] ' + new_task + '\n')
 
     def remove_task(self, nth):
-        self.nth = nth
-        self.todo_list.pop(self.nth - 1)
+        self.todo_list.pop(nth - 1)
 
-    def checked_state(self):
-        for i in range(len(self.todo_list)):
-            print(i + 1, ' - ', self.todo_list[i][:-1])
+    def print_todo_list(self):
+        print()
+        if len(self.todo_list) == 0:
+            print('No todos for today! :)')
+        else:
+            for i in range(len(self.todo_list)):
+                print(i + 1, ' - ', self.todo_list[i][:-1])
 
-    def proba(self):
-        self.new_task = 'qwerty'
-        self.read_file()
-        print(self.todo_list)
-        self.print_todo_list()
-        self.add_task()
-        print('')
-        self.print_todo_list()
-        print(self.todo_list)
-        print('')
-        self.remove_task(2)
-        self.print_todo_list()
-        print(self.todo_list)
-        self.checked_state()
-
+    def check_task(self, nth):
+        self.todo_list[nth-1] = '[X]' + self.todo_list[nth-1][3:]
 
 my_todo = Todo()
 
-if __name__ == "__main__":
-   my_todo.main(sys.argv[1:])
+if len(sys.argv) != 1:
+    my_todo.argumnet_function(sys.argv[1:])
 
-open_screen.draw_screen()
-
-# my_todo.print_todo_list()
-
-my_todo.proba()
+else:
+    open_screen.draw_screen()

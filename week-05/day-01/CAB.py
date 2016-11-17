@@ -16,7 +16,8 @@ def counter():
     pass
 
 def guess_eval(guess):
-    return list(guess)
+    list_of_guess = list(guess)
+    
 
 # cob = Cows_and_bulls()
 

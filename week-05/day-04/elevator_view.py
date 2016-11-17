@@ -69,6 +69,3 @@ class Elevator_view:
         else:
             print(self.bottom1_noelev)
         print(self.bottom2)
-
-# elevator1 = Elevator_view()
-# elev.art(10, False)
