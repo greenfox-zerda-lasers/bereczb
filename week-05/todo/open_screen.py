@@ -1,8 +1,9 @@
 import os
 
 def draw_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
-    print('Python Todo application')
+    # os.system('cls' if os.name == 'nt' else 'clear')
+
+    print('\nPython Todo application')
     print('=======================')
     print('')
     print('Command line arguments:')

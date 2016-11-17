@@ -1,10 +1,8 @@
-import open_screen
-import sys
-import csv
+import open_screen, sys, csv
 
 class Todo:
 
-    def argumnet_function(self, argv):
+    def argument_function(self, argv):
 
         self.argument = argv
         self.read_file()
@@ -19,24 +17,34 @@ class Todo:
                 self.add_task(self.argument[1])
                 self.write_file()
 
-        elif self.argument[0] == '-r':
+        elif self.argument[0] == '-r' or self.argument[0] == '-c':
             if len(self.argument) == 1:
                 print('\nUnable to remove: No index is provided')
-# !!!!!!!!!
-            elif int(self.argument[1]) < 1 or int(self.argument[1]) > len(self.todo_list):
-                print('\nUnable to remove: Index is out of bound')
             else:
-                self.remove_task(int(self.argument[1]))
-                self.write_file()
+                try:
+                    if int(self.argument[1]) < 1 or int(self.argument[1]) > len(self.todo_list):
+                        print('\nUnable to remove: Index is out of bound')
+                    else:
+                        if self.argument[0] == '-r':
+                            self.remove_task(int(self.argument[1]))
+                            self.write_file()
+                        elif self.argument[0] == '-c':
+                            self.check_task(int(self.argument[1]))
+                            self.write_file()
+                except:
+                    print('\nIndex is not a number!')
 
-        elif self.argument[0] == '-c':
-            self.check_task(int(self.argument[1]))
-            self.write_file()
+        else:
+            print('\n___!!! Unsupported argument !!!___')
+            open_screen.draw_screen()
 
     def read_file(self):
-        f = open('todo_storage.csv', 'r')
-        self.todo_list = f.readlines()
-        f.close()
+        try:
+            f = open('todo_storage.csv', 'r')
+            self.todo_list = f.readlines()
+            f.close()
+        except:
+            self.todo_list = []
 
     def write_file(self):
         f = open('todo_storage.csv', 'w')
@@ -63,7 +71,7 @@ class Todo:
 my_todo = Todo()
 
 if len(sys.argv) != 1:
-    my_todo.argumnet_function(sys.argv[1:])
+    my_todo.argument_function(sys.argv[1:])
 
 else:
     open_screen.draw_screen()
