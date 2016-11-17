@@ -17,7 +17,7 @@ class Todo:
                 self.add_task(self.argument[1])
                 self.write_file()
 
-        elif self.argument[0] == '-r' or self.argument[0] == '-c':
+        elif self.argument[0] == '-r':
             if len(self.argument) == 1:
                 print('\nUnable to remove: No index is provided')
             else:
@@ -25,12 +25,22 @@ class Todo:
                     if int(self.argument[1]) < 1 or int(self.argument[1]) > len(self.todo_list):
                         print('\nUnable to remove: Index is out of bound')
                     else:
-                        if self.argument[0] == '-r':
-                            self.remove_task(int(self.argument[1]))
-                            self.write_file()
-                        elif self.argument[0] == '-c':
-                            self.check_task(int(self.argument[1]))
-                            self.write_file()
+                        self.remove_task(int(self.argument[1]))
+                        self.write_file()
+                except:
+                    print('\nIndex is not a number!')
+
+        elif self.argument[0] == '-c':
+            if len(self.argument) == 1:
+                print('\nUnable to check: No index is provided')
+            else:
+                try:
+                    if int(self.argument[1]) < 1 or int(self.argument[1]) > len(self.todo_list):
+                        print('\nUnable to check: Index is out of bound')
+                    else:
+                        self.argument[0] == '-c'
+                        self.check_task(int(self.argument[1]))
+                        self.write_file()
                 except:
                     print('\nIndex is not a number!')
 
