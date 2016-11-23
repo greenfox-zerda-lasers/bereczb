@@ -16,28 +16,41 @@ class Character:
     def __init__(self):
         pass
 
-    def wall_or_edge(self, direction, map_list):
+    def move_up(self, map_list):
         self.character_position(self.hero_pos_x, self.hero_pos_y)
-        if direction == 'up':
-            if self.row > 0 and self.map_list[self.row-1][self.column] != '1':
-                return True
-            else:
-                return False
-        elif direction == 'down':
-            if self.row < 10 and self.map_list[self.row+1][self.column] != '1':
-                return True
-            else:
-                return False
-        elif direction == 'left':
-            if self.column > 0 and self.map_list[self.row][self.column-1] != '1':
-                return True
-            else:
-                return False
-        elif direction == 'right':
-            if self.column < 9 and self.map_list[self.row][self.column+1] != '1':
-                return True
-            else:
-                return False
+        self.map_list = map_list
+        if self.row > 0 and self.map_list[self.row-1][self.column] != '1':
+            self.deltay = -72
+            self.hero_pos_y -= 72
+        else:
+            self.deltay = 0
+
+    def move_down(self, map_list):
+        self.character_position(self.hero_pos_x, self.hero_pos_y)
+        self.map_list = map_list
+        if self.row < 10 and self.map_list[self.row+1][self.column] != '1':
+            self.deltay = 72
+            self.hero_pos_y += 72
+        else:
+            self.deltay = 0
+
+    def move_left(self, map_list):
+        self.character_position(self.hero_pos_x, self.hero_pos_y)
+        self.map_list = map_list
+        if self.column > 0 and self.map_list[self.row][self.column-1] != '1':
+            self.deltax = -72
+            self.hero_pos_x -= 72
+        else:
+            self.deltax = 0
+
+    def move_right(self, map_list):
+        self.character_position(self.hero_pos_x, self.hero_pos_y)
+        self.map_list = map_list
+        if self.column < 9 and self.map_list[self.row][self.column+1] != '1':
+            self.deltax = 72
+            self.hero_pos_x += 72
+        else:
+            self.deltax = 0
 
     def character_position(self, character_pos_x, character_pos_y):
         self.character_pos_x = character_pos_x
@@ -57,40 +70,24 @@ class Hero(Character):
         self.hero_pos_y = 40
 
     def hero_move_up(self, map_list):
-        self.hero_image = self.hero_up
         self.map_list = map_list
-        if super().wall_or_edge('up', self.map_list):
-            self.deltay = -72
-            self.hero_pos_y -= 72
-        else:
-            self.deltay = 0
+        self.hero_image = self.hero_up
+        super().move_up(self.map_list)
 
     def hero_move_down(self, map_list):
-        self.hero_image = self.hero_down
         self.map_list = map_list
-        if super().wall_or_edge('down', self.map_list):
-            self.deltay = 72
-            self.hero_pos_y += 72
-        else:
-            self.deltay = 0
+        self.hero_image = self.hero_down
+        super().move_down(self.map_list)
 
     def hero_move_left(self, map_list):
-        self.hero_image = self.hero_left
         self.map_list = map_list
-        if super().wall_or_edge('left', self.map_list):
-            self.deltax = -72
-            self.hero_pos_x -= 72
-        else:
-            self.deltax = 0
+        self.hero_image = self.hero_left
+        super().move_left(self.map_list)
 
     def hero_move_right(self, map_list):
-        self.hero_image = self.hero_right
         self.map_list = map_list
-        if super().wall_or_edge('right', self.map_list):
-            self.deltax = 72
-            self.hero_pos_x += 72
-        else:
-            self.deltax = 0
+        self.hero_image = self.hero_right
+        super().move_right(self.map_list)
 
 
 class Enemy(Character):
