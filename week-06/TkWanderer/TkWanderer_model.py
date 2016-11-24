@@ -15,12 +15,16 @@ class Map_of_game:
     def get_map(self):
         return self.map_list
 
+    def get_number_of_skeletons(self):
+        return random.randint(2, 5)
+
 class Character:
 
-    def move_up(self, char_pos_x, char_pos_y):
+    def move_up(self, char_pos_x, char_pos_y, ishero=False):
+        self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] != '1':
+        if (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == '0') or (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == 'C' and self.ishero == True):
             self.deltay = -72
             self.char_pos_y -= 72
             self.map_of_game.map_list[self.row-1][self.column] = 'C'
@@ -30,10 +34,11 @@ class Character:
         self.deltax = 0
         return self.char_pos_y
 
-    def move_down(self, char_pos_x, char_pos_y):
+    def move_down(self, char_pos_x, char_pos_y, ishero=False):
+        self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] != '1':
+        if (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == '0') or (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == 'C' and self.ishero == True):
             self.deltay = 72
             self.char_pos_y += 72
             self.map_of_game.map_list[self.row+1][self.column] = 'C'
@@ -43,10 +48,11 @@ class Character:
         self.deltax = 0
         return self.char_pos_y
 
-    def move_left(self, char_pos_x, char_pos_y):
+    def move_left(self, char_pos_x, char_pos_y, ishero=False):
+        self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] != '1':
+        if (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == '0') or (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == 'C' and self.ishero == True):
             self.deltax = -72
             self.char_pos_x -= 72
             self.map_of_game.map_list[self.row][self.column-1] = 'C'
@@ -56,10 +62,11 @@ class Character:
         self.deltay = 0
         return self.char_pos_x
 
-    def move_right(self, char_pos_x, char_pos_y):
+    def move_right(self, char_pos_x, char_pos_y, ishero=False):
+        self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] != '1':
+        if (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == '0') or (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == 'C' and self.ishero == True):
             self.deltax = 72
             self.char_pos_x += 72
             self.map_of_game.map_list[self.row][self.column+1] = 'C'
@@ -106,29 +113,38 @@ class Hero(Character):
         self.map_of_game = map_of_game
         self.hero_pos_x = 40
         self.hero_pos_y = 40
+        self.hp = 20 + 3 * random.randint(1, 6)
+        self.hp = 2 * random.randint(1, 6)
+        self.sp = 5 + random.randint(1, 6)
 
     def hero_move_up(self):
-        self.hero_pos_y = super().move_up(self.hero_pos_x, self.hero_pos_y)
+        self.hero_pos_y = super().move_up(self.hero_pos_x, self.hero_pos_y, True)
 
     def hero_move_down(self):
-        self.hero_pos_y = super().move_down(self.hero_pos_x, self.hero_pos_y)
+        self.hero_pos_y = super().move_down(self.hero_pos_x, self.hero_pos_y, True)
 
     def hero_move_left(self):
-        self.hero_pos_x = super().move_left(self.hero_pos_x, self.hero_pos_y)
+        self.hero_pos_x = super().move_left(self.hero_pos_x, self.hero_pos_y, True)
 
     def hero_move_right(self):
-        self.hero_pos_x = super().move_right(self.hero_pos_x, self.hero_pos_y)
+        self.hero_pos_x = super().move_right(self.hero_pos_x, self.hero_pos_y, True)
 
 
 class Skeleton(Character):
-    def __init__(self, map_of_game):
+    def __init__(self, map_of_game, level=1):
         self.map_of_game = map_of_game
+        self.level = level
         self.deltax, self.deltay = 0, 0
         self.enemy_pos_x, self.enemy_pos_y = super().random_enemy_starting_position()
-
-        print('init', (self.random_enemy_position_x-40)/72, (self.random_enemy_position_y-40)/72)
+        self.hp = 2 * self.level * random.randint(1, 6)
+        self.hp = self.level / 2 * random.randint(1, 6)
+        self.sp = level * random.randint(1, 6)
 
     def skeleton_move(self):
+        self.recursive_round = 0
+        self.skeleton_move_rec()
+
+    def skeleton_move_rec(self):
         self.direction = super().random_enemy_move()
         if self.direction == 'up':
             self.enemy_pos_y = super().move_up(self.enemy_pos_x, self.enemy_pos_y)
@@ -138,15 +154,26 @@ class Skeleton(Character):
             self.enemy_pos_x = super().move_left(self.enemy_pos_x, self.enemy_pos_y)
         else:
             self.enemy_pos_x = super().move_right(self.enemy_pos_x, self.enemy_pos_y)
+        if self.deltax == 0 and self.deltay == 0 and self.recursive_round < 10:
+            self.recursive_round += 1
+            self.skeleton_move_rec()
 
 
 class Boss(Character):
-    def __init__(self, map_of_game):
+    def __init__(self, map_of_game, level=1):
         self.map_of_game = map_of_game
+        self.level = level
         self.deltax, self.deltay = 0, 0
         self.enemy_pos_x, self.enemy_pos_y = super().random_enemy_starting_position()
+        self.hp = 2 * self.level * random.randint(1, 6) + random.randint(1, 6)
+        self.hp = self.level / 2 * random.randint(1, 6) + random.randint(1, 6) / 2
+        self.sp = level * random.randint(1, 6) + self.level
 
     def boss_move(self):
+        self.recursive_round = 0
+        self.boss_move_rec()
+
+    def boss_move_rec(self):
         self.direction = super().random_enemy_move()
         if self.direction == 'up':
             self.enemy_pos_y = super().move_up(self.enemy_pos_x, self.enemy_pos_y)
@@ -156,3 +183,6 @@ class Boss(Character):
             self.enemy_pos_x = super().move_left(self.enemy_pos_x, self.enemy_pos_y)
         else:
             self.enemy_pos_x = super().move_right(self.enemy_pos_x, self.enemy_pos_y)
+        if self.deltax == 0 and self.deltay == 0 and self.recursive_round < 10:
+            self.recursive_round += 1
+            self.boss_move_rec()

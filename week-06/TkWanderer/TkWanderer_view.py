@@ -67,4 +67,3 @@ class Screen():
         self.index = index
         self.deltax, self.deltay = deltax, deltay
         self.canvas.move(self.skeleton[self.index], self.deltax, self.deltay)
-        # print((self.canvas.coords(self.skeleton)[0]-40)/72, (self.canvas.coords(self.skeleton)[1]-40)/72)
