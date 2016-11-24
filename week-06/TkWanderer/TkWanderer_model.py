@@ -126,6 +126,8 @@ class Skeleton(Character):
         self.deltax, self.deltay = 0, 0
         self.enemy_pos_x, self.enemy_pos_y = super().random_enemy_starting_position()
 
+        print('init', (self.random_enemy_position_x-40)/72, (self.random_enemy_position_y-40)/72)
+
     def skeleton_move(self):
         self.direction = super().random_enemy_move()
         if self.direction == 'up':

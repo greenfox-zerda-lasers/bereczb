@@ -17,6 +17,8 @@ class Screen():
         self.hero_left = PhotoImage(file = "hero-left.png")
         self.hero_image_view = PhotoImage(file = "hero-down.png")
 
+        self.skeleton = []
+
     def draw_map(self, map_list):
         x, y = 40, 40
         self.map_list = map_list
@@ -32,7 +34,7 @@ class Screen():
 
     def draw_skeleton(self, skeleton_pos_x, skeleton_pos_y):
         self.skeleton_pos_x, self.skeleton_pos_y = skeleton_pos_x, skeleton_pos_y
-        self.skeleton = self.canvas.create_image(self.skeleton_pos_x, self.skeleton_pos_y, image = self.skeleton_image)
+        self.skeleton.append(self.canvas.create_image(self.skeleton_pos_x, self.skeleton_pos_y, image = self.skeleton_image))
 
     def draw_boss(self, boss_pos_x, boss_pos_y):
         self.boss_pos_x, self.boss_pos_y = boss_pos_x, boss_pos_y
@@ -61,6 +63,8 @@ class Screen():
         self.deltax, self.deltay = deltax, deltay
         self.canvas.move(self.boss, self.deltax, self.deltay)
 
-    def move_skeleton(self, deltax, deltay):
+    def move_skeleton(self, deltax, deltay, index):
+        self.index = index
         self.deltax, self.deltay = deltax, deltay
-        self.canvas.move(self.skeleton, self.deltax, self.deltay)
+        self.canvas.move(self.skeleton[self.index], self.deltax, self.deltay)
+        # print((self.canvas.coords(self.skeleton)[0]-40)/72, (self.canvas.coords(self.skeleton)[1]-40)/72)
