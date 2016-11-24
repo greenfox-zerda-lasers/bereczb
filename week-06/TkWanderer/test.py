@@ -1,6 +1,22 @@
+import random
 
-skeletons_list = []
+def random_enemy_move():
+    random_direction = random.randint(1, 4)
+    if random_direction == 1:
+        return 'up'
+    elif random_direction == 2:
+        return 'down'
+    elif random_direction == 3:
+        return 'left'
+    elif random_direction == 4:
+        return 'right'
 
-for i in range(3):
-    skeletons_list.append('skeleton'+str(i))
-    print(skeletons_list[i])
+
+print(random_enemy_move())
+print(random_enemy_move())
+print(random_enemy_move())
+print(random_enemy_move())
+print(random_enemy_move())
+print(random_enemy_move())
+print(random_enemy_move())
+print(random_enemy_move())

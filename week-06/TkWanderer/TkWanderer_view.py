@@ -10,7 +10,12 @@ class Screen():
         self.floor = PhotoImage(file = "floor.png")
         self.wall = PhotoImage(file = "wall.png")
         self.skeleton_image = PhotoImage(file = "skeleton.png")
-
+        self.boss_image = PhotoImage(file = "boss.png")
+        self.hero_down = PhotoImage(file = "hero-down.png")
+        self.hero_up = PhotoImage(file = "hero-up.png")
+        self.hero_right = PhotoImage(file = "hero-right.png")
+        self.hero_left = PhotoImage(file = "hero-left.png")
+        self.hero_image_view = PhotoImage(file = "hero-down.png")
 
     def draw_map(self, map_list):
         x, y = 40, 40
@@ -22,17 +27,40 @@ class Screen():
                 else:
                     self.canvas.create_image(x + (i * 72), y + (j * 72), image = self.floor)
 
-    def draw_hero(self, hero):
-        self.hero = self.canvas.create_image(40, 40, image = hero)
+    def draw_hero(self):
+        self.hero = self.canvas.create_image(40, 40, image = self.hero_image_view)
 
     def draw_skeleton(self, skeleton_pos_x, skeleton_pos_y):
         self.skeleton_pos_x, self.skeleton_pos_y = skeleton_pos_x, skeleton_pos_y
         self.skeleton = self.canvas.create_image(self.skeleton_pos_x, self.skeleton_pos_y, image = self.skeleton_image)
 
-    def move_hero(self, deltax, deltay, hero_image_view):
-        self.hero_image_view = hero_image_view
+    def draw_boss(self, boss_pos_x, boss_pos_y):
+        self.boss_pos_x, self.boss_pos_y = boss_pos_x, boss_pos_y
+        self.boss = self.canvas.create_image(self.boss_pos_x, self.boss_pos_y, image = self.boss_image)
+
+    def move_hero(self, deltax, deltay, direction):
+        self.deltax, self.deltay, self.direction = deltax, deltay, direction
+        self.hero_direction(self.direction)
         pos_x = self.canvas.coords(self.hero)[0]
         pos_y = self.canvas.coords(self.hero)[1]
         self.canvas.delete(self.hero)
-        self.hero = self.canvas.create_image(pos_x, pos_y, image = self.hero_image_view)
-        self.canvas.move(self.hero, deltax, deltay)
+        self.hero = self.canvas.create_image(pos_x + self.deltax, pos_y + self.deltay, image = self.hero_image_view)
+
+    def hero_direction(self, direction):
+        self.direction = direction
+        if self.direction == 'up':
+            self.hero_image_view = self.hero_up
+        elif self.direction == 'left':
+            self.hero_image_view = self.hero_left
+        elif self.direction == 'right':
+            self.hero_image_view = self.hero_right
+        else:
+            self.hero_image_view = self.hero_down
+
+    def move_boss(self, deltax, deltay):
+        self.deltax, self.deltay = deltax, deltay
+        self.canvas.move(self.boss, self.deltax, self.deltay)
+
+    def move_skeleton(self, deltax, deltay):
+        self.deltax, self.deltay = deltax, deltay
+        self.canvas.move(self.skeleton, self.deltax, self.deltay)
