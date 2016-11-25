@@ -25,8 +25,8 @@ class Character:
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
         if (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == '0'): # or (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == 'C' and self.ishero == True):
-            self.deltay = -72
-            self.char_pos_y -= 72
+            self.deltay = -60
+            self.char_pos_y -= 60
             self.map_of_game.map_list[self.row-1][self.column] = 'C'
             self.map_of_game.map_list[self.row][self.column] = '0'
         else:
@@ -39,8 +39,8 @@ class Character:
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
         if (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == '0'): # or (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == 'C' and self.ishero == True):
-            self.deltay = 72
-            self.char_pos_y += 72
+            self.deltay = 60
+            self.char_pos_y += 60
             self.map_of_game.map_list[self.row+1][self.column] = 'C'
             self.map_of_game.map_list[self.row][self.column] = '0'
         else:
@@ -53,8 +53,8 @@ class Character:
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
         if (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == '0'): # or (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == 'C' and self.ishero == True):
-            self.deltax = -72
-            self.char_pos_x -= 72
+            self.deltax = -60
+            self.char_pos_x -= 60
             self.map_of_game.map_list[self.row][self.column-1] = 'C'
             self.map_of_game.map_list[self.row][self.column] = '0'
         else:
@@ -67,8 +67,8 @@ class Character:
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
         if (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == '0'): # or (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == 'C' and self.ishero == True):
-            self.deltax = 72
-            self.char_pos_x += 72
+            self.deltax = 60
+            self.char_pos_x += 60
             self.map_of_game.map_list[self.row][self.column+1] = 'C'
             self.map_of_game.map_list[self.row][self.column] = '0'
         else:
@@ -96,8 +96,8 @@ class Character:
     def character_position(self, character_pos_x, character_pos_y):
         self.character_pos_x = character_pos_x
         self.character_pos_y = character_pos_y
-        self.column = int((self.character_pos_x - 40) / 72)
-        self.row = int((self.character_pos_y - 40) / 72)
+        self.column = int((self.character_pos_x - 40) / 60)
+        self.row = int((self.character_pos_y - 40) / 60)
 
     def random_enemy_starting_position(self):
         free_floor_tiles_list = []
@@ -107,8 +107,8 @@ class Character:
                     free_floor_tiles_list.append([j, i])
         random_position = random.randint(0, len(free_floor_tiles_list))
 
-        self.random_enemy_position_x = free_floor_tiles_list[random_position-1][0] * 72 + 40
-        self.random_enemy_position_y = free_floor_tiles_list[random_position-1][1] * 72 + 40
+        self.random_enemy_position_x = free_floor_tiles_list[random_position-1][0] * 60 + 40
+        self.random_enemy_position_y = free_floor_tiles_list[random_position-1][1] * 60 + 40
         self.map_of_game.map_list[free_floor_tiles_list[random_position-1][1]][free_floor_tiles_list[random_position-1][0]] = 'C'
 
         return self.random_enemy_position_x, self.random_enemy_position_y

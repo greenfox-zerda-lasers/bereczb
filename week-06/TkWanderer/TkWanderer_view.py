@@ -1,23 +1,29 @@
 from tkinter import *
+from PIL import Image, ImageTk
 
 class Screen():
 
     def __init__(self):
         self.root = Tk()
-        self.canvas = Canvas(self.root, width = 730, height = 800)
+        self.canvas = Canvas(self.root, width = 615, height = 680, bg = "black")
         self.canvas.pack()
 
-        self.floor = PhotoImage(file = "floor.png")
-        self.wall = PhotoImage(file = "wall.png")
-        self.skeleton_image = PhotoImage(file = "skeleton.png")
-        self.boss_image = PhotoImage(file = "boss.png")
-        self.hero_down = PhotoImage(file = "hero-down.png")
-        self.hero_up = PhotoImage(file = "hero-up.png")
-        self.hero_right = PhotoImage(file = "hero-right.png")
-        self.hero_left = PhotoImage(file = "hero-left.png")
-        self.hero_image_view = PhotoImage(file = "hero-down.png")
+        self.floor = self.resize("floor.png", 60, 60)
+        self.wall = self.resize("wall.png", 60, 60)
+        self.skeleton_image = self.resize("skeleton.png", 60, 60)
+        self.boss_image = self.resize("boss.png", 60, 60)
+        self.hero_down = self.resize("hero-down.png", 60, 60)
+        self.hero_up = self.resize("hero-up.png", 60, 60)
+        self.hero_right = self.resize("hero-right.png", 60, 60)
+        self.hero_left = self.resize("hero-left.png", 60, 60)
+        self.hero_image_view = self.hero_down
 
         self.skeleton = []
+
+    def resize(self, img_path, width, height):
+        image = Image.open(img_path)
+        resized_image = image.resize((width, height), Image.ANTIALIAS)
+        return ImageTk.PhotoImage(resized_image)
 
     def draw_map(self, map_list):
         x, y = 40, 40
@@ -25,9 +31,9 @@ class Screen():
         for i in range(10):
             for j in range(11):
                 if self.map_list[j][i] == '1':
-                    self.canvas.create_image(x + (i * 72), y + (j * 72), image = self.wall)
+                    self.canvas.create_image(x + (i * 60), y + (j * 60), image = self.wall)
                 else:
-                    self.canvas.create_image(x + (i * 72), y + (j * 72), image = self.floor)
+                    self.canvas.create_image(x + (i * 60), y + (j * 60), image = self.floor)
 
     def draw_hero(self):
         self.hero = self.canvas.create_image(40, 40, image = self.hero_image_view)
