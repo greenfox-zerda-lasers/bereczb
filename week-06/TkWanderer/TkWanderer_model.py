@@ -24,7 +24,7 @@ class Character:
         self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == '0') or (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == 'C' and self.ishero == True):
+        if (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == '0'): # or (self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] == 'C' and self.ishero == True):
             self.deltay = -72
             self.char_pos_y -= 72
             self.map_of_game.map_list[self.row-1][self.column] = 'C'
@@ -38,7 +38,7 @@ class Character:
         self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == '0') or (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == 'C' and self.ishero == True):
+        if (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == '0'): # or (self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] == 'C' and self.ishero == True):
             self.deltay = 72
             self.char_pos_y += 72
             self.map_of_game.map_list[self.row+1][self.column] = 'C'
@@ -52,7 +52,7 @@ class Character:
         self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == '0') or (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == 'C' and self.ishero == True):
+        if (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == '0'): # or (self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] == 'C' and self.ishero == True):
             self.deltax = -72
             self.char_pos_x -= 72
             self.map_of_game.map_list[self.row][self.column-1] = 'C'
@@ -66,7 +66,7 @@ class Character:
         self.ishero = ishero
         self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
         self.character_position(self.char_pos_x, self.char_pos_y)
-        if (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == '0') or (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == 'C' and self.ishero == True):
+        if (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == '0'): # or (self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] == 'C' and self.ishero == True):
             self.deltax = 72
             self.char_pos_x += 72
             self.map_of_game.map_list[self.row][self.column+1] = 'C'
@@ -75,6 +75,23 @@ class Character:
             self.deltax = 0
         self.deltay = 0
         return self.char_pos_x
+
+    def junction(self, char_pos_x, char_pos_y):
+        self.char_pos_x, self.char_pos_y = char_pos_x, char_pos_y
+        self.character_position(self.char_pos_x, self.char_pos_y)
+        num_of_available_directions = 0
+        if self.row > 0 and self.map_of_game.map_list[self.row-1][self.column] != '1':
+            num_of_available_directions += 1
+        if self.row < 10 and self.map_of_game.map_list[self.row+1][self.column] != '1':
+            num_of_available_directions += 1
+        if self.column > 0 and self.map_of_game.map_list[self.row][self.column-1] != '1':
+            num_of_available_directions += 1
+        if self.column < 9 and self.map_of_game.map_list[self.row][self.column+1] != '1':
+            num_of_available_directions += 1
+        if num_of_available_directions > 2:
+            return True
+        else:
+            return False
 
     def character_position(self, character_pos_x, character_pos_y):
         self.character_pos_x = character_pos_x
@@ -139,13 +156,17 @@ class Skeleton(Character):
         self.hp = 2 * self.level * random.randint(1, 6)
         self.hp = self.level / 2 * random.randint(1, 6)
         self.sp = level * random.randint(1, 6)
+        self.straight_direction = False
 
     def skeleton_move(self):
         self.recursive_round = 0
         self.skeleton_move_rec()
 
     def skeleton_move_rec(self):
-        self.direction = super().random_enemy_move()
+
+        if self.straight_direction == False:
+            self.direction = super().random_enemy_move()
+
         if self.direction == 'up':
             self.enemy_pos_y = super().move_up(self.enemy_pos_x, self.enemy_pos_y)
         elif self.direction == 'down':
@@ -155,8 +176,11 @@ class Skeleton(Character):
         else:
             self.enemy_pos_x = super().move_right(self.enemy_pos_x, self.enemy_pos_y)
         if self.deltax == 0 and self.deltay == 0 and self.recursive_round < 10:
+            self.straight_direction = False
             self.recursive_round += 1
             self.skeleton_move_rec()
+        else:
+            self.straight_direction = True
 
 
 class Boss(Character):
@@ -168,13 +192,22 @@ class Boss(Character):
         self.hp = 2 * self.level * random.randint(1, 6) + random.randint(1, 6)
         self.hp = self.level / 2 * random.randint(1, 6) + random.randint(1, 6) / 2
         self.sp = level * random.randint(1, 6) + self.level
+        self.straight_direction = False
+        self.direction = super().random_enemy_move()
 
     def boss_move(self):
         self.recursive_round = 0
+        self.isjunction = super().junction(self.enemy_pos_x, self.enemy_pos_y)
         self.boss_move_rec()
 
     def boss_move_rec(self):
-        self.direction = super().random_enemy_move()
+
+        if self.isjunction == True:
+            self.straight_direction = False
+
+        if self.straight_direction == False:
+            self.direction = super().random_enemy_move()
+
         if self.direction == 'up':
             self.enemy_pos_y = super().move_up(self.enemy_pos_x, self.enemy_pos_y)
         elif self.direction == 'down':
@@ -183,6 +216,10 @@ class Boss(Character):
             self.enemy_pos_x = super().move_left(self.enemy_pos_x, self.enemy_pos_y)
         else:
             self.enemy_pos_x = super().move_right(self.enemy_pos_x, self.enemy_pos_y)
+
         if self.deltax == 0 and self.deltay == 0 and self.recursive_round < 10:
+            self.straight_direction = False
             self.recursive_round += 1
             self.boss_move_rec()
+        else:
+            self.straight_direction = True
