@@ -1,0 +1,42 @@
+body{
+  margin: auto;
+  background: linear-gradient(to right, #C3C3C3, white, #C3C3C3);
+}
+
+main{
+  margin-left: 145px;
+  margin-right: 145px;
+  width: auto;
+
+}
+
+.mainpic {
+   display: flex;
+   flex-direction: row;
+   align-items: center;
+}
+
+.mainpic img{
+   width: 90%;
+   /*height: 311px;*/
+   /*object-fit: scale-down;*/
+}
+
+.button {
+   width: 10%;
+   height: 311px;
+}
+
+.right {
+   transform: rotate(180deg)
+}
+
+.buttons {
+   text-align: center;
+   border-radius: 15px;
+}
+
+.buttons img {
+   width: 40px;
+   height: 40px;
+}
