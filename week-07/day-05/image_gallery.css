@@ -3,40 +3,48 @@ body{
   background: linear-gradient(to right, #C3C3C3, white, #C3C3C3);
 }
 
-main{
-  margin-left: 145px;
-  margin-right: 145px;
-  width: auto;
-
+h1 {
+   text-align: center;
 }
 
-.mainpic {
+main{
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.maincontent {
    display: flex;
    flex-direction: row;
-   align-items: center;
+   justify-content: space-around;
 }
 
-.mainpic img{
+.maincontent img{
    width: 90%;
-   /*height: 311px;*/
-   /*object-fit: scale-down;*/
 }
 
 .button {
-   width: 10%;
-   height: 311px;
+   width: 5%;
+   height: 480px;
 }
 
-.right {
+.mainpic {
+   background-image: url("1.jpg");
+   background-size: 100%;
+   background-position: center;
+   width: 90%;
+   background-repeat: no-repeat;
+}
+
+.arrow-r {
    transform: rotate(180deg)
 }
 
-.buttons {
+.index-buttons {
+   margin-top: 15px;
    text-align: center;
-   border-radius: 15px;
 }
 
-.buttons img {
+.index-buttons img {
    width: 40px;
    height: 40px;
 }
