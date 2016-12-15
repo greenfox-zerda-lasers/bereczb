@@ -13,9 +13,14 @@ var rawData;
 var newTask;
 var taskRow;
 
-xhr.open('GET', 'https://mysterious-dusk-8248.herokuapp.com/todos');
-xhr.send();
-xhr.onreadystatechange = ready;
+readTasks();
+// deleteItems();
+
+function readTasks () {
+   xhr.open('GET', 'https://mysterious-dusk-8248.herokuapp.com/todos');
+   xhr.send();
+   xhr.onreadystatechange = ready;
+}
 
 function ready(rsp) {
    if ( xhr.readyState === XMLHttpRequest.DONE ) {
@@ -39,19 +44,23 @@ function displayTasks() {
       taskRow.className = 'items';
       task.innerHTML = e[2];
       task.className = 'itemtext';
-      if (e[0]) {
-         check.className = 'checkbox fa fa-check fa-2x';
-      } else {
-         check.className = 'checkbox';
-      };
       trash.src = 'trash-icon.png';
       trash.className = 'wastebin';
+      trash.dataset.idd = e[1];
+      if (e[0]) {
+         check.className = 'checkbox fa fa-check fa-2x';
+         check.dataset.idd = e[1];
+      } else {
+         check.className = 'checkbox';
+         check.dataset.idd = e[1];
+      };
       box.appendChild(taskRow);
       items = document.querySelectorAll('.items');
       items[items.length - 1].appendChild(task);
       items[items.length - 1].appendChild(trash);
       items[items.length - 1].appendChild(check);
    })
+   deleteItems();
 }
 
 button.addEventListener('click', function() {
@@ -59,3 +68,31 @@ button.addEventListener('click', function() {
    console.log(newTask);
    inputText.value = '';
 })
+
+
+
+
+function deleteItems() {
+   var trashes = document.querySelectorAll('.wastebin');
+   trashes.forEach(function (e) {
+      e.addEventListener('click', function() {
+         console.log(e.dataset.idd);
+         xhr.open('DELETE', 'https://mysterious-dusk-8248.herokuapp.com/todos/'+e.dataset.idd);
+         xhr.send();
+         xhr.onreadystatechange = console.log;
+      })
+   })
+   checkItems();
+}
+
+function checkItems() {
+   var trashes = document.querySelectorAll('.checkbox');
+   trashes.forEach(function (e) {
+      e.addEventListener('click', function() {
+         console.log(e.dataset.idd);
+         xhr.open('PUT', 'https://mysterious-dusk-8248.herokuapp.com/todos/'+e.dataset.idd);
+         xhr.send({'text': 'eeeeee', 'completed': true});
+         xhr.onreadystatechange = console.log;
+      })
+   })
+}
