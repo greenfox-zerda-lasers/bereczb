@@ -14,9 +14,10 @@ var newTask;
 var taskRow;
 
 readTasks();
-// deleteItems();
 
 function readTasks () {
+   taskList = [];
+   inputText.value = '';
    xhr.open('GET', 'https://mysterious-dusk-8248.herokuapp.com/todos');
    xhr.send();
    xhr.onreadystatechange = ready;
@@ -24,7 +25,7 @@ function readTasks () {
 
 function ready(rsp) {
    if ( xhr.readyState === XMLHttpRequest.DONE ) {
-      rawData = JSON.parse(xhr.response);
+      rawData = JSON.parse(xhr.response).reverse();
       console.log(JSON.parse(xhr.response));
       rawData.forEach(function(e){
          taskList.push([e.completed, e.id, e.text]);
@@ -44,12 +45,14 @@ function displayTasks() {
       taskRow.className = 'items';
       task.innerHTML = e[2];
       task.className = 'itemtext';
+      task.dataset.idd = e[1];
       trash.src = 'trash-icon.png';
       trash.className = 'wastebin';
       trash.dataset.idd = e[1];
       if (e[0]) {
          check.className = 'checkbox fa fa-check fa-2x';
          check.dataset.idd = e[1];
+         task.classList.add('checked');
       } else {
          check.className = 'checkbox';
          check.dataset.idd = e[1];
@@ -60,39 +63,53 @@ function displayTasks() {
       items[items.length - 1].appendChild(trash);
       items[items.length - 1].appendChild(check);
    })
-   deleteItems();
-}
-
-button.addEventListener('click', function() {
-   newTask = inputText.value;
-   console.log(newTask);
-   inputText.value = '';
-})
-
-
-
-
-function deleteItems() {
+   button.addEventListener('click', function() {
+      newTask = inputText.value;
+      console.log(newTask);
+      xhr.open('POST', 'https://mysterious-dusk-8248.herokuapp.com/todos/');
+      xhr.setRequestHeader('Content-Type', 'application/json')
+      xhr.send(JSON.stringify({text: newTask}));
+      xhr.onreadystatechange = endOfProcess;
+   })
    var trashes = document.querySelectorAll('.wastebin');
    trashes.forEach(function (e) {
       e.addEventListener('click', function() {
-         console.log(e.dataset.idd);
          xhr.open('DELETE', 'https://mysterious-dusk-8248.herokuapp.com/todos/'+e.dataset.idd);
          xhr.send();
-         xhr.onreadystatechange = console.log;
+         xhr.onreadystatechange = endOfProcess;
       })
    })
-   checkItems();
+   var checkboxes = document.querySelectorAll('.checkbox');
+   checkboxes.forEach(function (e) {
+      e.addEventListener('click', function() {
+         xhr.open('PUT', 'https://mysterious-dusk-8248.herokuapp.com/todos/' + e.dataset.idd);
+         xhr.setRequestHeader('Content-Type', 'application/json')
+         var  checkedTask;
+         taskList.forEach(function (e) {
+            console.log(e[1], ' ', this);
+            if (e[1] === this) {
+               console.log(e[2]);
+               checkedTask = e[2];
+            }
+         }, parseInt(e.dataset.idd));
+         console.log('checkedTask: ', checkedTask);
+         if (e.classList.contains("fa")) {
+            xhr.send(JSON.stringify({text: checkedTask, completed: false}));
+         } else {
+            xhr.send(JSON.stringify({text: checkedTask, completed: true}));
+         }
+         xhr.onreadystatechange = endOfProcess;
+      })
+   })
 }
 
-function checkItems() {
-   var trashes = document.querySelectorAll('.checkbox');
-   trashes.forEach(function (e) {
-      e.addEventListener('click', function() {
-         console.log(e.dataset.idd);
-         xhr.open('PUT', 'https://mysterious-dusk-8248.herokuapp.com/todos/'+e.dataset.idd);
-         xhr.send({'text': 'eeeeee', 'completed': true});
-         xhr.onreadystatechange = console.log;
-      })
-   })
+function endOfProcess(rsp) {
+   if ( xhr.readyState === XMLHttpRequest.DONE ) {
+      items = document.querySelectorAll('.items');
+      box = document.querySelector('.box');
+      items.forEach(function(e) {
+         box.removeChild(e);
+      });
+      readTasks();
+   }
 }

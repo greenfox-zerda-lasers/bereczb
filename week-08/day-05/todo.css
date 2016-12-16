@@ -49,6 +49,13 @@ input {
    font-family: Lato-Regular, sans-serif;
    font-size: 26px;
    text-align: left;
+   font-family: Lato-Regular, sans-serif;
+   font-size: 26px;
+   color: #9b9b9b;
+}
+
+.checked {
+   color: #cecece;
 }
 
 .wastebin {
@@ -62,7 +69,6 @@ input {
    height: 32px;
    width: 38px;
    border-radius: 20px;
-   background-color: #df69e8;
    border-color: #9b9b9b;
    border-width: thin;
    border-style: solid;
@@ -70,6 +76,7 @@ input {
 
 .fa-check {
    color: white;
+   background-color: #df69e8;
 }
 
 .heading {
@@ -77,11 +84,4 @@ input {
    font-size: 64px;
    color: #ffffff;
    margin: 0px;
-}
-
-.todo-item {
-   font-family: Lato-Regular, sans-serif;
-   font-size: 26px;
-   line-height: 2.2;
-   color: #cecece;
 }
