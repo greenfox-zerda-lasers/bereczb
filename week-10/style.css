@@ -84,9 +84,9 @@ p {
 }
 
 ol {
-   height: 305px;
+   height: 300px;
    margin: 0;
-   overflow-y: scroll;
+   overflow-y: auto;;
 }
 
 li {
@@ -115,4 +115,6 @@ li:hover {
 ul {
    margin-top: 0px;
    list-style: none;
+   height: 230px;
+   overflow-y: auto;
 }
