@@ -16,36 +16,23 @@
                   </div>
                   <img src="music-placeholder.png" alt="" class="artwork">
                </div>
-               <ul>
-                  <li>All tracks</li>
-                  <li>Favorites</li>
+               <ul class="playlists">
+                  <li class="alltracks">All tracks</li>
+                  <li class="favorites">Favorites</li>
                </ul>
             </div>
             <div class="right">
-               <div class="current">
-                  currently playing
+               <div class="currentlyplayed">
+                  <div class="currentTrack"></div>
+                  <div class="artist"></div>
                </div>
-               <ol>
-                  <li>Ars Sonor - Never Give Up</li>
-                  <li>Doctor Turtle - Doctor Talos Answers The Door</li>
-                  <li>Organoid - Purple Drift</li>
-                  <li>Ars Sonor - Never Give Up</li>
-                  <li>Doctor Turtle - Doctor Talos Answers The Door</li>
-                  <li>Organoid - Purple Drift</li>
-                  <li>Ars Sonor - Never Give Up</li>
-                  <li>Doctor Turtle - Doctor Talos Answers The Door</li>
-                  <li>Organoid - Purple Drift</li>
-                  <li>Ars Sonor - Never Give Up</li>
-                  <li>Doctor Turtle - Doctor Talos Answers The Door</li>
-                  <li>Organoid - Purple Drift</li>
-                  <li>Ars Sonor - Never Give Up</li>
-                  <li>Doctor Turtle - Doctor Talos Answers The Door</li>
-                  <li>Organoid - Purple Drift</li>
-               </ol>
+               <ol class="tracklist"></ol>
             </div>
          </div>
-         <audio src="https://github.com/greenfox-academy/teaching-materials/blob/master/javascript/project-music-player/music/Ars_Sonor_-_02_-_Never_Give_Up.mp3?raw=true" controls></audio>
+         <audio class="currentSource" src="music/AlkalineTrio-Clavicle.mp3" controls autoplay></audio>
       </main>
+      <!-- <script src="ajax.js"></script> -->
       <script src="player.js"></script>
+      <!-- <script src="playlists.js"></script> -->
    </body>
 </html>

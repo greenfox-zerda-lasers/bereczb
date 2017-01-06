@@ -6,7 +6,10 @@
 var express = require('express');
 var mysql = require('mysql');
 var app = express();
+var cors = require('cors')
 var playlist = [];
+
+app.use(cors());
 
 var connection = mysql.createConnection({
    host: 'localhost',
@@ -17,41 +20,50 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-app.get('/playlists', function(req, res) {
-   connection.query('SELECT * FROM playlists', function(err, rows, fields) {
+app.get('/tracks', function(req, res) {
+   connection.query('SELECT * FROM tracks', function(err, rows, fields) {
       if (err) throw err;
       res.send(rows);
       playlist = rows;
    });
 });
 
-app.get('/create', function(req, res) {
-	connection.query({
-		sql: 'INSERT INTO playlists(playlist, system) VALUES(?, ?)',
-		values: ['Hello', 0]
-	}, function(err, rows, fields) {
-		if (err) throw err;
-  		res.send(rows);
-	});
-});
-
-app.get('/delete', function(req, res) {
-   connection.query('DELETE FROM playlists WHERE id = "7"', function(err, rows, fields) {
-      if (err) throw err;
-      res.send(rows);
-   });
-});
-
-app.get('/playlist-tracks/:playlist_id', function(req, res) {
-   connection.query('SELECT * FROM playlists WHERE id = ?', [2], function(err, rows, fields) {
-      if (err) throw err;
-      res.send(rows);
-   });
-});
-
 app.listen(3000, function () {
-  console.log('SERVER IS UP AND RUNNIN on port: 3000');
+   console.log('SERVER IS UP AND RUNNIN on port: 3000');
 });
+
+// app.get('/playlists', function(req, res) {
+//    connection.query('SELECT * FROM playlists', function(err, rows, fields) {
+//       if (err) throw err;
+//       res.send(rows);
+//       playlist = rows;
+//    });
+// });
+
+// app.get('/create', function(req, res) {
+// 	connection.query({
+// 		sql: 'INSERT INTO playlists(playlist, system) VALUES(?, ?)',
+// 		values: ['Hello', 0]
+// 	}, function(err, rows, fields) {
+// 		if (err) throw err;
+//   		res.send(rows);
+// 	});
+// });
+//
+// app.get('/delete', function(req, res) {
+//    connection.query('DELETE FROM playlists WHERE id = "7"', function(err, rows, fields) {
+//       if (err) throw err;
+//       res.send(rows);
+//    });
+// });
+//
+// app.get('/playlist-tracks/:playlist_id', function(req, res) {
+//    connection.query('SELECT * FROM playlists WHERE id = ?', [2], function(err, rows, fields) {
+//       if (err) throw err;
+//       res.send(rows);
+//    });
+// });
+
 
 // app.use(bodyParser.json());
 
